@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CPU Scheduling Simulator</title>
+  <link rel="stylesheet" href="styles.css"> 
+ 
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cpu" viewBox="0 0 16 16" style="width: 70px; height: 70px; vertical-align: middle; margin-right: 10px;">
+            <path d="M5 0a.5.5 0 0 1 .5.5V2h1V.5a.5.5 0 0 1 1 0V2h1V.5a.5.5 0 0 1 1 0V2h1V.5a.5.5 0 0 1 1 0V2A2.5 2.5 0 0 1 14 4.5h1.5a.5.5 0 0 1 0 1H14v1h1.5a.5.5 0 0 1 0 1H14v1h1.5a.5.5 0 0 1 0 
+            1H14v1h1.5a.5.5 0 0 1 0 1H14a2.5 2.5 0 0 1-2.5 2.5v1.5a.5.5 0 0 1-1 0V14h-1v1.5a.5.5 0 0 1-1 0V14h-1v1.5a.5.5 0 0 1-1 0V14h-1v1.5a.5.5 0 0 1-1 0V14A2.5 2.5 0 0 1 2 11.5H.5a.5.5 0 0 1 
+            0-1H2v-1H.5a.5.5 0 0 1 0-1H2v-1H.5a.5.5 0 0 1 0-1H2v-1H.5a.5.5 0 0 1 0-1H2A2.5 2.5 0 0 1 4.5 2V.5A.5.5 0 0 1 5 0m-.5 3A1.5 1.5 0 0 0 3 4.5v7A1.5 1.5 0 0 0 4.5 13h7a1.5 1.5 0 0 0 1.5-1.5v-7A1.5 
+            1.5 0 0 0 11.5 3zM5 6.5A1.5 1.5 0 0 1 6.5 5h3A1.5 1.5 0 0 1 11 6.5v3A1.5 1.5 0 0 1 9.5 11h-3A1.5 1.5 0 0 1 5 9.5zM6.5 6a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5z"/>
+        </svg>
+        CPU Scheduling Simulator
+      </h1>
+      <p class="subtitle">Visualize and compare different scheduling algorithms</p>
+    </header>
+
+    <div class="content">
+      <div class="controls">
+        <div class="control-row">
+          <div class="control-group">
+            <label>Number of Processes:</label>
+            <input type="number" id="numProcesses" min="1" max="10" value="3">
+          </div>
+          <div class="control-group">
+            <label>Scheduling Algorithm:</label>
+            <select id="algorithm">
+              <option value="FCFS">First Come First Serve (FCFS)</option>
+              <option value="SJF">Shortest Job First (SJF)</option>
+              <option value="SRT">Shortest Remaining Time (SRT)</option>
+              <option value="RR">Round Robin (RR)</option>
+              <option value="MLFQ">Multi-Level Feedback Queue (MLFQ)</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="quantumDiv" class="control-group hidden">
+          <label>Time Quantum:</label>
+          <input type="number" id="quantum" value="2" min="1">
+        </div>
+
+        <div class="control-group">
+          <button onclick="generateInputs()">Generate Process Inputs</button>
+        </div>
+
+        <div id="processInputs"></div>
+
+        <div class="control-group">
+          <button onclick="calculate()">Run Simulation</button>
+        </div>
+      </div>
+
+      <div id="errorContainer"></div>
+
+      <div id="resultsSection" class="hidden">
+        <div class="averages">
+          <div class="avg-card">
+            <div class="avg-label">Avg Turnaround Time</div>
+            <div class="avg-value" id="avgTurnaround">0</div>
+          </div>
+          <div class="avg-card">
+            <div class="avg-label">Avg Waiting Time</div>
+            <div class="avg-value" id="avgWaiting">0</div>
+          </div>
+          <div class="avg-card">
+            <div class="avg-label">Total Time</div>
+            <div class="avg-value" id="totalTime">0</div>
+          </div>
+        </div>
+
+        <h2> Results Table</h2>
+        <table id="resultTable">
+          <thead>
+            <tr>
+              <th>Process</th>
+              <th>Arrival</th>
+              <th>Burst</th>
+              <th>Finish</th>
+              <th>Turnaround</th>
+              <th>Waiting</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+
+        <h2> Gantt Chart</h2>
+        <div id="gantt-container">
+          <div id="gantt-bar"></div>
+          <div id="gantt-time"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
